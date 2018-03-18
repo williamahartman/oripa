@@ -44,6 +44,11 @@ public class StringResource_ja extends ListResourceBundle {
 		{ "Monokai", "???"}, // TODO: Translate this
 		{ "Solarized", "???"}, // TODO: Translate this
 		{ "SolarizedDark", "???"}, // TODO: Translate this
+		{"LookAndFeel", "???"}, //TODO: Translate this
+		{"System", "???"}, //TODO: Translate this
+		{"Gemini", "???"}, //TODO: Translate this
+		{"Twilight", "???"}, //TODO: Translate this
+		{"Graphite", "???"}, //TODO: Translate this
         { "Direction_DirectV", "入力する線分の2つの端点を指定してください。+[Ctrl]で線分上の任意の点を指定できます。" }, 
         { "Direction_OnV", "入力する線分の乗る2点を指定してください。" }, 
         { "Direction_Symmetric", "3点を指定して対称な線分を入力します。1,2点めで対称位置にある線分、2,3点めで基準となる線分を指定してください。+[Ctrl]で自動継続。" }, 

@@ -8,7 +8,7 @@ public class LangColorScheme implements ColorScheme {
 	private static final Color BLACK       = new Color(0x231F20);
 	private static final Color BLUE        = new Color(0x3488A8);
 	private static final Color CREAM     = new Color(0xECDFB8);
-	private static final Color WHITE        = new Color(0xFFFFFF);
+	private static final Color WHITE        = new Color(0xFFF6DC);
 	private static final Color MAGENTA     = new Color(0xD33682);
 	private static final Color GREEN = new Color(0xA9DC76);
 
@@ -53,7 +53,7 @@ public class LangColorScheme implements ColorScheme {
 				return new BasicStroke((float) (0.25 / scale), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
 			case OriLine.TYPE_CUT:
-				return new BasicStroke((float) (2.0 / scale), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+				return new BasicStroke((float) (1.5 / scale), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 
 			default:
 				return new BasicStroke((float) (1.0 / scale), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);

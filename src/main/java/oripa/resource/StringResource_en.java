@@ -43,12 +43,18 @@ public class StringResource_en extends ListResourceBundle {
 		{StringID.Main.ABOUT_ID, "About"},
 		{StringID.COPY_PASTE_ID, "Copy and Paste"},
 
-		{StringID.Main.COLOR_SCHEME_ID, "Color Schemes"},
+		{StringID.Main.COLOR_SCHEME_ID, "Editor Color Schemes"},
 		{StringID.Main.CLASSIC_COLOR_ID, "Classic"},
 		{StringID.Main.LANG_COLOR_ID, "Lang"},
 		{StringID.Main.MONOKAI_COLOR_ID, "Monokai"},
 		{StringID.Main.SOLARIZED_COLOR_ID, "Solarized"},
 		{StringID.Main.SOLARIZED_DARK_COLOR_ID, "Solarized Dark"},
+
+		{StringID.Main.LOOK_AND_FEEL_ID, "Interface Color Scheme"},
+		{StringID.Main.SYSTEM_LAF_ID, "Native Theme"},
+		{StringID.Main.GEMINI_LAF_ID, "Gemini"},
+		{StringID.Main.TWILIGHT_LAF_ID, "Twilight"},
+		{StringID.Main.GRAPHITE_LAF_ID, "Graphite"},
 
 		{StringID.Default.FILE_NAME_ID, "NoTitle"},
 		{StringID.DIALOG_TITLE_SAVE_ID, "Save"},

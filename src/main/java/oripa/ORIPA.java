@@ -18,14 +18,6 @@
 
 package oripa;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.io.File;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import oripa.doc.Doc;
 import oripa.resource.Constants;
 import oripa.resource.ResourceHolder;
@@ -36,6 +28,11 @@ import oripa.view.main.MainFrame;
 import oripa.view.model.ModelViewFrame;
 import oripa.view.model.ModelViewFrame3D;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ORIPA {
 
@@ -43,7 +40,8 @@ public class ORIPA {
     public static Doc doc;
     public static MainFrame mainFrame;
     public static ModelViewFrame modelFrame;
-    public static String infoString = "ORIPA S: (c) 2012 OUCHI Koji\n" +
+    public static String infoString =
+			"ORIPA S: (c) 2012 OUCHI Koji\n" +
     		"http://github.com/Ooouch1\n" +
     		"ORIPA: (c) 2005-2009 Jun Mitani\nhttp://mitani.cs.tsukuba.ac.jp/\n\n"+
             "This program comes with ABSOLUTELY NO WARRANTY;\n"+
@@ -54,100 +52,89 @@ public class ORIPA {
     public static ModelViewFrame3D modelFrame3D;
     public static int tmpInt;
     public static EstimationResultFrame renderFrame;
-    ;
-//    public static FoldabilityCheckFrame checkFrame;
 
 	public static String iniFilePath = System.getProperty("user.home") + File.separator + "oripa.ini";
-
-	
 	private static final String resourcePackage = "oripa.resource";
-
 	
 	private static ResourceBundle createResource(String classPath){
 		ResourceBundle bundle;
         try {
-            bundle = ResourceBundle.getBundle(classPath,
-                    Locale.getDefault());
+            bundle = ResourceBundle.getBundle(classPath, Locale.getDefault());
         } catch (Exception e) {
-            bundle = ResourceBundle.getBundle(classPath,
-                    Locale.ENGLISH);
+            bundle = ResourceBundle.getBundle(classPath, Locale.ENGLISH);
         }
-        bundle = ResourceBundle.getBundle(classPath, Locale.ENGLISH);
-		
-		
+
 		return bundle;
 	}
 	
     public static void main(String[] args) {
         res = createResource(resourcePackage+".StringResource");
- 
         ResourceHolder resources = ResourceHolder.getInstance();
-        		
         TITLE = resources.getString(ResourceKey.LABEL, StringID.Main.TITLE_ID);
-//        TITLE = ORIPA.res.getString("Title") + "  v" + Version.ORIPA_VERSION;
-
-        int uiPanelWidth = 0;//150;
-        int modelFrameWidth = 400;
-        int modelFrameHeight = 400;
-        int mainFrameWidth = 1000;
-        int mainFrameHeight = 800;
-
-        int appTotalWidth = mainFrameWidth + uiPanelWidth;
-        int appTotalHeight = mainFrameHeight;
-
         doc = new Doc(Constants.DEFAULT_PAPER_SIZE);
-//        doc = DocHolder.getInstance().getDoc();
-        
-        // Construction of the main frame
-        mainFrame = new MainFrame();
 
-        Toolkit toolkit = mainFrame.getToolkit();
-        Dimension dim = toolkit.getScreenSize();
-        int originX = (int) (dim.getWidth() / 2 - appTotalWidth / 2);
-        int originY = (int) (dim.getHeight() / 2 - appTotalHeight / 2);
-
-        mainFrame.setBounds(originX + uiPanelWidth, originY, mainFrameWidth, mainFrameHeight);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.updateTitleText();
-        mainFrame.initialize();
-        mainFrame.setVisible(true);
-
-        // Expected folded origami frame (x-ray)
-        modelFrame = new ModelViewFrame();
-        modelFrame.setBounds(originX + (appTotalWidth - modelFrameWidth) / 2, originY + (appTotalHeight - modelFrameHeight) / 2,
-                modelFrameWidth, modelFrameHeight);
-        modelFrame.setVisible(false);
-
-        // "Folded origami" frame. Estimation of the folded form.
-        renderFrame = new EstimationResultFrame();
-        renderFrame.setVisible(false);
-
-        // "Check Window". Check inputed data.
-//        checkFrame = new FoldabilityCheckFrame();
-//        checkFrame.setVisible(false);
-
-
-
-        if (Config.FOR_STUDY) {
-            modelFrame3D = new ModelViewFrame3D();
-            modelFrame3D.setBounds(0, 0,
-                    modelFrameWidth * 2, modelFrameHeight * 2);
-            modelFrame3D.setVisible(true);
-        }
-
+        setLaF(LookAndFeelFactory.getNative());
     }
 
-    public static void ERROR_END(String message) {
-        JOptionPane.showMessageDialog(
-                ORIPA.mainFrame, message, "ERROR",
-                JOptionPane.ERROR_MESSAGE);
-        System.exit(0);
-    }
+	public static void setLaF(LookAndFeel laf) {
+		if(mainFrame != null) {
+			mainFrame.setVisible(false);
+			mainFrame.dispose();
+		}
+
+		try {
+			UIManager.setLookAndFeel(laf);
+			createFrame();
+		} catch (Exception e) {
+			System.out.println("Failed to set Look and Feel: " + laf.getName());
+			e.printStackTrace();
+		}
+	}
+
+    private static void createFrame() {
+		int uiPanelWidth = 0;
+		int modelFrameWidth = 400;
+		int modelFrameHeight = 400;
+		int mainFrameWidth = 1000;
+		int mainFrameHeight = 800;
+
+		int appTotalWidth = mainFrameWidth + uiPanelWidth;
+		int appTotalHeight = mainFrameHeight;
+
+		// Construction of the main frame
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		mainFrame = new MainFrame();
+
+		Toolkit toolkit = mainFrame.getToolkit();
+		Dimension dim = toolkit.getScreenSize();
+		int originX = (int) (dim.getWidth() / 2 - appTotalWidth / 2);
+		int originY = (int) (dim.getHeight() / 2 - appTotalHeight / 2);
+
+		mainFrame.setBounds(originX + uiPanelWidth, originY, mainFrameWidth, mainFrameHeight);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.updateTitleText();
+		mainFrame.initialize();
+		mainFrame.setVisible(true);
+
+		// Expected folded origami frame (x-ray)
+		modelFrame = new ModelViewFrame();
+		modelFrame.setBounds(originX + (appTotalWidth - modelFrameWidth) / 2, originY + (appTotalHeight - modelFrameHeight) / 2,
+				modelFrameWidth, modelFrameHeight);
+		modelFrame.setVisible(false);
+
+		// "Folded origami" frame. Estimation of the folded form.
+		renderFrame = new EstimationResultFrame();
+		renderFrame.setVisible(false);
+
+		if (Config.FOR_STUDY) {
+			modelFrame3D = new ModelViewFrame3D();
+			modelFrame3D.setBounds(0, 0,
+					modelFrameWidth * 2, modelFrameHeight * 2);
+			modelFrame3D.setVisible(true);
+		}
+	}
 
     public static void outMessage(String s) {
-        JOptionPane.showMessageDialog(
-                ORIPA.mainFrame, s, "ORIPA",
-                JOptionPane.DEFAULT_OPTION);
-
+        JOptionPane.showMessageDialog(ORIPA.mainFrame, s, "ORIPA", JOptionPane.PLAIN_MESSAGE);
     }
 }

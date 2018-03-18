@@ -25,6 +25,12 @@ public class StringID {
 		public static final String MONOKAI_COLOR_ID = "Monokai";
 		public static final String SOLARIZED_COLOR_ID = "Solarized";
 		public static final String SOLARIZED_DARK_COLOR_ID = "SolarizedDark";
+
+		public static final String LOOK_AND_FEEL_ID = "LookAndFeel";
+		public static final String SYSTEM_LAF_ID = "System";
+		public static final String GEMINI_LAF_ID = "Gemini";
+		public static final String TWILIGHT_LAF_ID = "Twilight";
+		public static final String GRAPHITE_LAF_ID = "Graphite";
 	}
 
 

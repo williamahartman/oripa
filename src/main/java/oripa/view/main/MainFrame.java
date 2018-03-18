@@ -44,6 +44,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import oripa.Config;
+import oripa.LookAndFeelFactory;
 import oripa.ORIPA;
 import oripa.bind.ButtonFactory;
 import oripa.bind.PaintActionButtonFactory;
@@ -85,9 +86,8 @@ public class MainFrame extends JFrame implements ActionListener,
 	private MainScreenSettingDB screenSetting = MainScreenSettingDB.getInstance();
 	private PaintContext mouseContext = PaintContext.getInstance();
 
-	PainterScreen mainScreen;
-	private JMenu menuFile = new JMenu(
-			ORIPA.res.getString(StringID.Main.FILE_ID));
+	private PainterScreen mainScreen;
+	private JMenu menuFile = new JMenu(ORIPA.res.getString(StringID.Main.FILE_ID));
 	private JMenu menuEdit = new JMenu(ORIPA.res.getString("Edit"));
 	private JMenu menuHelp = new JMenu(ORIPA.res.getString("Help"));
 	private JMenu menuView = new JMenu(ORIPA.res.getString("View"));
@@ -95,15 +95,19 @@ public class MainFrame extends JFrame implements ActionListener,
 	private JMenuItem menuItemOpen = new JMenuItem(ORIPA.res.getString("Open"));
 
 	private JMenuItem menuItemSave = new JMenuItem(ORIPA.res.getString("Save"));
-	private JMenuItem menuItemSaveAs = new JMenuItem(
-			ORIPA.res.getString("SaveAs"));
-	private JMenuItem menuItemSaveAsImage = new JMenuItem(
-			ORIPA.res.getString("SaveAsImage"));
+	private JMenuItem menuItemSaveAs = new JMenuItem(ORIPA.res.getString("SaveAs"));
+	private JMenuItem menuItemSaveAsImage = new JMenuItem(ORIPA.res.getString("SaveAsImage"));
 
 	private JMenuItem menuItemExportDXF = new JMenuItem("Export DXF");
 	private JMenuItem menuItemExportOBJ = new JMenuItem("Export OBJ");
 	private JMenuItem menuItemExportCP = new JMenuItem("Export CP");
 	private JMenuItem menuItemExportSVG = new JMenuItem("Export SVG");
+
+	private JMenu menuLookAndFeels = new JMenu(ORIPA.res.getString("LookAndFeel"));
+	private JMenuItem menuSystemLaF = new JMenuItem(ORIPA.res.getString("System"));
+	private JMenuItem menuGeminiLaF = new JMenuItem(ORIPA.res.getString("Gemini"));
+	private JMenuItem menuTwilightLaF = new JMenuItem(ORIPA.res.getString("Twilight"));
+	private JMenuItem menuGraphiteLaF = new JMenuItem(ORIPA.res.getString("Graphite"));
 
 	private JMenu menuColorSchemes = new JMenu(ORIPA.res.getString("ColorScheme"));
 	private JMenuItem menuClassicColor = new JMenuItem(ORIPA.res.getString("Classic"));
@@ -255,6 +259,10 @@ public class MainFrame extends JFrame implements ActionListener,
 		menuSolarizedColor.addActionListener(this);
 		menuSolarizedDarkColor.addActionListener(this);
 
+		menuSystemLaF.addActionListener(this);
+		menuGeminiLaF.addActionListener(this);
+		menuTwilightLaF.addActionListener(this);
+		menuGraphiteLaF.addActionListener(this);
 
 		menuItemDeleteSelectedLines
 				.addActionListener(new DeleteSelectedLines());
@@ -287,6 +295,12 @@ public class MainFrame extends JFrame implements ActionListener,
 		menuEdit.add(menuItemDeleteSelectedLines);
 		menuEdit.add(menuItemUndo);
 		menuEdit.add(menuItemChangeOutline);
+
+		menuLookAndFeels.add(menuSystemLaF);
+		menuLookAndFeels.add(menuGeminiLaF);
+		menuLookAndFeels.add(menuTwilightLaF);
+		menuLookAndFeels.add(menuGraphiteLaF);
+		menuView.add(menuLookAndFeels);
 
 		menuColorSchemes.add(menuClassicColor);
 		menuColorSchemes.add(menuLangColor);
@@ -389,8 +403,6 @@ public class MainFrame extends JFrame implements ActionListener,
 				return;
 			}
 		}
-
-		System.out.println(e);
 
 		//TODO Refactor the long, long if-else sequences!
 		
@@ -501,6 +513,14 @@ public class MainFrame extends JFrame implements ActionListener,
 		} else if (e.getSource() == menuSolarizedDarkColor) {
 			PaintConfig.colors = new SolarizedDarkColorScheme();
 			mainScreen.repaint();
+		} else if (e.getSource() == menuSystemLaF) {
+			ORIPA.setLaF(LookAndFeelFactory.getNative());
+		} else if (e.getSource() == menuGeminiLaF) {
+			ORIPA.setLaF(LookAndFeelFactory.getOripaGemini());
+		} else if (e.getSource() == menuTwilightLaF) {
+			ORIPA.setLaF(LookAndFeelFactory.getOripaTwilight());
+		} else if (e.getSource() == menuGraphiteLaF) {
+			ORIPA.setLaF(LookAndFeelFactory.getOripaGraphite());
 		}
 	}
 
