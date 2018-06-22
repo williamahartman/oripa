@@ -30,6 +30,7 @@ import oripa.view.model.ModelViewFrame3D;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;

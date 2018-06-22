@@ -17,7 +17,6 @@ public class LookAndFeelFactory {
 	}
 
 	public static LookAndFeel getOripaTwilight() {
-		SubstanceLookAndFeel laf = new SubstanceLookAndFeel(new OripaTwilight()){};
 		return new SubstanceLookAndFeel(new OripaTwilight()){};
 	}
 
