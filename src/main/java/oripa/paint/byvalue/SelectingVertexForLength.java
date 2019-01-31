@@ -44,7 +44,7 @@ public class SelectingVertexForLength extends PickingVertex{
 	@Override
 	public void onResult(PaintContext context) {
 
-        double length = GeomUtil.Distance(
+        double length = GeomUtil.distance(
         		context.getVertex(0), context.getVertex(1));
 
         ValueDB valDB = ValueDB.getInstance();

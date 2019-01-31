@@ -29,15 +29,38 @@ public class GeomUtil {
 
     public final static double EPS = 1.0e-6;
 
-    public static double Distance(Vector2d p0, Vector2d p1) {
-        return Distance(p0.x, p0.y, p1.x, p1.y);
+    public static double distance(Vector2d p0, Vector2d p1) {
+        return distance(p0.x, p0.y, p1.x, p1.y);
     }
 
-    public static double DistanceSquared(Vector2d p0, Vector2d p1) {
-        return DistanceSquared(p0.x, p0.y, p1.x, p1.y);
+    public static double distanceSquared(Vector2d p0, Vector2d p1) {
+        return distanceSquared(p0.x, p0.y, p1.x, p1.y);
     }
 
-    public static double DistanceSquared(double x0, double y0, double x1, double y1) {
+	public static double distance(Vector2d p, Line line) {
+		Vector2d sub0, sub, sub0b;
+		double x0 = line.p.x;
+		double y0 = line.p.y;
+		double x1 = line.p.x + line.dir.x;
+		double y1 = line.p.y + line.dir.y;
+		double px = p.x;
+		double py = p.y;
+
+		sub0 = new Vector2d(x0 - px, y0 - py);
+		sub0b = new Vector2d(-sub0.x, -sub0.y);
+		sub = new Vector2d(x1 - x0, y1 - y0);
+
+		double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
+				/ ((sub.x * sub.x) + (sub.y * sub.y));
+
+		return distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
+	}
+
+	private static double distance(double x0, double y0, double x1, double y1) {
+		return Math.sqrt((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1));
+	}
+
+    public static double distanceSquared(double x0, double y0, double x1, double y1) {
         return (x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1);
     }
 
@@ -133,13 +156,13 @@ public class GeomUtil {
     public static int getCrossPoint(Vector2d ap1, Vector2d ap2,
             Vector2d p1, Vector2d p2, Vector2d p3, Vector2d p4) {
 
-        if (Distance(p1, p3) < EPS && Distance(p2, p4) < EPS) {
+        if (distance(p1, p3) < EPS && distance(p2, p4) < EPS) {
             ap1.set(p1);
             ap2.set(p2);
             return 2;
         }
 
-        if (Distance(p1, p4) < EPS && Distance(p2, p3) < EPS) {
+        if (distance(p1, p4) < EPS && distance(p2, p3) < EPS) {
             ap1.set(p1);
             ap2.set(p2);
             return 2;
@@ -198,10 +221,10 @@ public class GeomUtil {
     }
 
     public static boolean isSameLineSegment(OriLine l0, OriLine l1) {
-        if (Distance(l0.p0, l1.p0) < EPS && Distance(l0.p1, l1.p1) < EPS) {
+        if (distance(l0.p0, l1.p0) < EPS && distance(l0.p1, l1.p1) < EPS) {
             return true;
         }
-        if (Distance(l0.p0, l1.p1) < EPS && Distance(l0.p1, l1.p0) < EPS) {
+        if (distance(l0.p0, l1.p1) < EPS && distance(l0.p1, l1.p0) < EPS) {
             return true;
         }
 
@@ -306,9 +329,9 @@ public class GeomUtil {
     }
 
     public static Vector2d getIncenter(Vector2d v0, Vector2d v1, Vector2d v2) {
-        double l0 = Distance(v1, v2);
-        double l1 = Distance(v0, v2);
-        double l2 = Distance(v0, v1);
+        double l0 = distance(v1, v2);
+        double l1 = distance(v0, v2);
+        double l2 = distance(v0, v1);
 
         Vector2d vc = new Vector2d();
         vc.x = (v0.x * l0 + v1.x * l1 + v2.x * l2) / (l0 + l1 + l2);
@@ -437,11 +460,11 @@ public class GeomUtil {
                 / ((sub.x * sub.x) + (sub.y * sub.y));
 
         if (t < 0.0) {
-            return Distance(px, py, x0, y0);
+            return distance(px, py, x0, y0);
         } else if (t > 1.0) {
-            return Distance(px, py, x1, y1);
+            return distance(px, py, x1, y1);
         } else {
-            return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
+            return distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
         }
 
     }
@@ -464,13 +487,13 @@ public class GeomUtil {
 
         if (t < 0.0) {
             nearestPoint.set(sp);
-            return Distance(px, py, x0, y0);
+            return distance(px, py, x0, y0);
         } else if (t > 1.0) {
             nearestPoint.set(ep);
-            return Distance(px, py, x1, y1);
+            return distance(px, py, x1, y1);
         } else {
             nearestPoint.set(x0 + t * sub.x, y0 + t * sub.y);
-            return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
+            return distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
         }
 
     }
@@ -491,7 +514,7 @@ public class GeomUtil {
         double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
                 / ((sub.x * sub.x) + (sub.y * sub.y));
 
-        return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
+        return distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
 
     }
 
@@ -593,7 +616,7 @@ public class GeomUtil {
         return crossVec.z > 0;
     }
 
-    public static double Distance(Vector2d p, Line line, double[] param) {
+    public static double distance(Vector2d p, Line line, double[] param) {
         Vector2d sub0, sub, sub0b;
         double x0 = line.p.x;
         double y0 = line.p.y;
@@ -610,7 +633,7 @@ public class GeomUtil {
                 / ((sub.x * sub.x) + (sub.y * sub.y));
 
         param[0] = t;
-        return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
+        return distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
     }
 
 //  Investigate the relationship between the point q with the segment p0, p1
@@ -626,29 +649,6 @@ public class GeomUtil {
             return true; 
         } 
         return false;
-    }
-
-    public static double Distance(Vector2d p, Line line) {
-        Vector2d sub0, sub, sub0b;
-        double x0 = line.p.x;
-        double y0 = line.p.y;
-        double x1 = line.p.x + line.dir.x;
-        double y1 = line.p.y + line.dir.y;
-        double px = p.x;
-        double py = p.y;
-
-        sub0 = new Vector2d(x0 - px, y0 - py);
-        sub0b = new Vector2d(-sub0.x, -sub0.y);
-        sub = new Vector2d(x1 - x0, y1 - y0);
-
-        double t = ((sub.x * sub0b.x) + (sub.y * sub0b.y))
-                / ((sub.x * sub.x) + (sub.y * sub.y));
-
-        return Distance(x0 + t * sub.x, y0 + t * sub.y, px, py);
-    }
-
-    private static double Distance(double x0, double y0, double x1, double y1) {
-        return Math.sqrt((x0 - x1) * (x0 - x1) + (y0 - y1) * (y0 - y1));
     }
     
     public static boolean isContainsPointFoldedFace(OriFace face, Vector2d v, double eps) {
@@ -780,7 +780,7 @@ public class GeomUtil {
             if (preCrossPoint == null) {
                 preCrossPoint = cp;
             } else {
-                if (GeomUtil.Distance(cp, preCrossPoint) > eps) {
+                if (GeomUtil.distance(cp, preCrossPoint) > eps) {
                     // Intersects at least in two places
                     return true;
                 }

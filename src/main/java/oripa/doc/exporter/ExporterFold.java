@@ -98,8 +98,8 @@ public class ExporterFold implements Exporter {
 						int indexWithMinimumDistances = -1;
 						for(OriLine line: modelEdges) {
 							//We don't know if the endpoints are in the same order, so we need to check both ways
-							double d1 = GeomUtil.Distance(line.p0, e.sv.p) + GeomUtil.Distance(line.p1, e.ev.p);
-							double d2 = GeomUtil.Distance(line.p0, e.ev.p) + GeomUtil.Distance(line.p1, e.sv.p);
+							double d1 = GeomUtil.distance(line.p0, e.sv.p) + GeomUtil.distance(line.p1, e.ev.p);
+							double d2 = GeomUtil.distance(line.p0, e.ev.p) + GeomUtil.distance(line.p1, e.sv.p);
 							double smallerDistance = Math.min(d1, d2);
 							if (smallerDistance < minimumDistances) {
 								minimumDistances = smallerDistance;
@@ -143,7 +143,7 @@ public class ExporterFold implements Exporter {
 	 */
 	private int sloppyIndexOf(List<OriPoint> list, OriPoint p) {
 		for (int i = 0; i < list.size(); i++) {
-			if (GeomUtil.Distance(p, list.get(i)) <= GeomUtil.EPS) {
+			if (GeomUtil.distance(p, list.get(i)) <= GeomUtil.EPS) {
 				return i;
 			}
 		}
@@ -162,7 +162,7 @@ public class ExporterFold implements Exporter {
 		double minDistance = Double.POSITIVE_INFINITY;
 		int minDistanceIndex = -1;
 		for (int i = 0; i < list.size(); i++) {
-			Double distance = GeomUtil.Distance(p, list.get(i));
+			Double distance = GeomUtil.distance(p, list.get(i));
 			if (distance < minDistance) {
 				minDistance = distance;
 				minDistanceIndex = i;

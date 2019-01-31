@@ -34,7 +34,7 @@ public class FolderTool {
 	//
 	//					boolean isNewPoint = true;
 	//					for (Vector2d v2d : vv) {
-	//						if (GeomUtil.Distance(v2d, crossV) < 1) {
+	//						if (GeomUtil.distance(v2d, crossV) < 1) {
 	//							isNewPoint = false;
 	//							break;
 	//						}
@@ -99,7 +99,7 @@ public class FolderTool {
 				if (preCrossPoint == null) {
 					preCrossPoint = cp;
 				} else {
-					if (GeomUtil.Distance(cp, preCrossPoint) > size * 0.001) {
+					if (GeomUtil.distance(cp, preCrossPoint) > size * 0.001) {
 						return true;
 					}
 				}

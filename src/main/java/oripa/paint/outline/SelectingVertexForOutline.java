@@ -38,7 +38,7 @@ public class SelectingVertexForOutline extends PickingVertex {
 		
         boolean bClose = false;
         for (Vector2d tv : context.getVertices()) {
-            if (GeomUtil.Distance(v, tv) < 1) {
+            if (GeomUtil.distance(v, tv) < 1) {
                 bClose = true;
                 break;
             }

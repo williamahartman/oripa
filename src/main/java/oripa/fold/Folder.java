@@ -762,7 +762,7 @@ public class Folder {
 
 		for (OriHalfedge he : face.halfedges) {
 			double param[] = new double[1];
-			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
+			double d0 = GeomUtil.distance(he.tmpVec, preLine, param);
 			double d1 = param[0]; 
 
 			Vector2d footV = new Vector2d(afterOrigin);
@@ -787,7 +787,7 @@ public class Folder {
 			b.sub(ep, sp);
 			for (OriHalfedge he : face.halfedges) {
 
-				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
+				if (GeomUtil.distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
 					continue;
 				}
 				if (Math.abs(b.y) < GeomUtil.EPS) {
@@ -933,7 +933,7 @@ public class Folder {
 
 		for (OriHalfedge he : face.halfedges) {
 			double param[] = new double[1];
-			double d0 = GeomUtil.Distance(he.tmpVec, preLine, param);
+			double d0 = GeomUtil.distance(he.tmpVec, preLine, param);
 			double d1 = param[0];
 
 			Vector2d footV = new Vector2d(afterOrigin);
@@ -958,7 +958,7 @@ public class Folder {
 			b.sub(ep, sp);
 			for (OriHalfedge he : face.halfedges) {
 
-				if (GeomUtil.Distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
+				if (GeomUtil.distance(he.tmpVec, new Line(sp, b)) < GeomUtil.EPS) {
 					continue;
 				}
 				if (Math.abs(b.y) < GeomUtil.EPS) {

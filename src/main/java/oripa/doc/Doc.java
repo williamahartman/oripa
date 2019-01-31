@@ -272,7 +272,7 @@ public class Doc {
 //			if (crossPoint == null) {
 //				continue;
 //			}
-//			double distance = GeomUtil.Distance(crossPoint, v1);
+//			double distance = GeomUtil.distance(crossPoint, v1);
 //			if (distance < CalculationResource.POINT_EPS) {
 //				continue;
 //			}
@@ -290,7 +290,7 @@ public class Doc {
 //
 //		addLine(new OriLine(v1, bestPoint, PaintConfig.inputLineType));
 //
-//		if (GeomUtil.Distance(bestPoint, startV) < CalculationResource.POINT_EPS) {
+//		if (GeomUtil.distance(bestPoint, startV) < CalculationResource.POINT_EPS) {
 //			return;
 //		}
 //
@@ -335,7 +335,7 @@ public class Doc {
 
 					boolean isNewPoint = true;
 					for (Vector2d v2d : vv) {
-						if (GeomUtil.Distance(v2d, crossV) < 1) {
+						if (GeomUtil.distance(v2d, crossV) < 1) {
 							isNewPoint = false;
 							break;
 						}

@@ -24,8 +24,8 @@ public class LineDivider {
 		ArrayList<OriLine> divided = new ArrayList<>(2);
 
 		// Normally you don't want to add a vertex too close to the end of the line
-		if (GeomUtil.Distance(line.p0, v) < paperSize * 0.001
-				|| GeomUtil.Distance(line.p1, v) < paperSize * 0.001) {
+		if (GeomUtil.distance(line.p0, v) < paperSize * 0.001
+				|| GeomUtil.distance(line.p1, v) < paperSize * 0.001) {
 			return null;
 		}
 

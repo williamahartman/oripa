@@ -63,11 +63,11 @@ public class LineAdder {
 
 			iterator.remove();
 
-			if (GeomUtil.Distance(line.p0, crossPoint) > CalculationResource.POINT_EPS) {
+			if (GeomUtil.distance(line.p0, crossPoint) > CalculationResource.POINT_EPS) {
 				toBeAdded.add(new OriLine(line.p0, crossPoint, line.typeVal));
 			}
 
-			if (GeomUtil.Distance(line.p1, crossPoint) > CalculationResource.POINT_EPS) {
+			if (GeomUtil.distance(line.p1, crossPoint) > CalculationResource.POINT_EPS) {
 				toBeAdded.add(new OriLine(line.p1, crossPoint, line.typeVal));
 			}
 
@@ -102,10 +102,10 @@ public class LineAdder {
 			}
 
 			// If the intersection is on the end of the line, skip
-			if (GeomUtil.Distance(inputLine.p0, line.p0) < CalculationResource.POINT_EPS ||
-					GeomUtil.Distance(inputLine.p0, line.p1) < CalculationResource.POINT_EPS||
-					GeomUtil.Distance(inputLine.p1, line.p0) < CalculationResource.POINT_EPS||
-					GeomUtil.Distance(inputLine.p1, line.p1) < CalculationResource.POINT_EPS) {
+			if (GeomUtil.distance(inputLine.p0, line.p0) < CalculationResource.POINT_EPS ||
+					GeomUtil.distance(inputLine.p0, line.p1) < CalculationResource.POINT_EPS||
+					GeomUtil.distance(inputLine.p1, line.p0) < CalculationResource.POINT_EPS||
+					GeomUtil.distance(inputLine.p1, line.p1) < CalculationResource.POINT_EPS) {
 				continue;
 			}
 
@@ -165,7 +165,7 @@ public class LineAdder {
 		for (int i = 1; i < points.size(); i++) {
 			Vector2d p = points.get(i);
 			// remove very short line
-			if (GeomUtil.Distance(prePoint, p) < CalculationResource.POINT_EPS) {
+			if (GeomUtil.distance(prePoint, p) < CalculationResource.POINT_EPS) {
 				continue;
 			}
 

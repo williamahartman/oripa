@@ -61,7 +61,7 @@ public class LineMirror {
 			OriPoint vertex, OriLine baseOriLine) {
 
 		Line baseLine = baseOriLine.getLine();
-		double dist0 = GeomUtil.Distance(vertex, baseLine);
+		double dist0 = GeomUtil.distance(vertex, baseLine);
 
 		OriPoint dir0 = new OriPoint();
 		if (GeomUtil.isRightSide(vertex, baseLine)) {
